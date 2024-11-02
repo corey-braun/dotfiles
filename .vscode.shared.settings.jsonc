@@ -1,0 +1,75 @@
+{
+    "telemetry.telemetryLevel": "off",
+    "redhat.telemetry.enabled": false,
+    "files.eol": "\n",
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.lineNumbers": "relative",
+    "editor.cursorBlinking": "solid",
+    "vim.cursorStylePerMode.normal": "block",
+    "workbench.startupEditor": "none",
+    "editor.rulers": [80, 120],
+    "workbench.preferredDarkColorTheme": "Default Dark+",
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#252525",
+        "editor.lineHighlightBorder": "#252525",
+        "editor.lineHighlightBackground": "#1D1D1D",
+    },
+    "cSpell.enabledLanguageIds": [
+        "asciidoc",
+        "latex",
+        "markdown",
+    ],
+    "cSpell.languageSettings": [
+        {
+            "languageId": "markdown",
+            // Exclude code blocks
+            "ignoreRegExpList": [
+                "/^\\s*```[\\s\\S]*?^\\s*```/gm",
+                "/(`{1,2}).{1,}\\1/g"
+            ]
+        }
+    ],
+    "files.associations": {
+        // Ansible
+        // https://github.com/ansible/vscode-ansible/issues/369#issuecomment-1030053102
+        "**/*playbook*.{yml,yaml}": "ansible",
+        "**/defaults/*.{yml,yaml}": "ansible",
+        "**/handlers/*.{yml,yaml}": "ansible",
+        "**/meta/*.{yml,yaml}": "ansible",
+        "**/playbooks/*.{yml,yaml}": "ansible",
+        "**/requirements.{yml,yaml}": "ansible",
+        "**/tasks/*.{yml,yaml}": "ansible",
+        "**/vars/*.{yml,yaml}": "ansible",
+        // Docker
+        "Dockerfile*": "dockerfile",
+    },
+    "yaml.customTags": [
+        // AWS CloudFormation
+        // https://github.com/redhat-developer/vscode-yaml/issues/669#issuecomment-1136338006
+        "!Base64 scalar",
+        "!Cidr scalar",
+        "!And sequence",
+        "!Equals sequence",
+        "!If sequence",
+        "!Not sequence",
+        "!Or sequence",
+        "!Condition scalar",
+        "!FindInMap sequence",
+        "!GetAtt sequence",
+        "!GetAtt scalar", // Not in list linked above, but needed for "short form" syntax
+        "!GetAZs scalar",
+        "!ImportValue scalar",
+        "!Join sequence",
+        "!Select sequence",
+        "!Split sequence",
+        "!Sub scalar",
+        "!Transform mapping",
+        "!Ref scalar",
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+    },
+    "[dockerfile]": {
+        "editor.insertSpaces": false,
+    },
+}

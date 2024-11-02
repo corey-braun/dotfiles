@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+import os
+import re
+import sys
+
+
+def block_in_str(input_text: str, block: str,
+                 marker: str = '# {mark} CHEZMOI MANAGED BLOCK',
+                 marker_begin: str = 'BEGIN', marker_end: str = 'END',
+                 insertafter: str = None) -> None:
+    """
+    A rip off of Ansible's `blockinfile` module, made to work for chezmoi's `modify_` scripts
+    """
+    # Define the marker strings based on inputs
+    marker_start_text = marker.format(mark=marker_begin)
+    marker_end_text = marker.format(mark=marker_end)
+
+    # Define the pattern to match everything between the start and end markers (inclusive)
+    pattern = re.compile(
+        re.escape(marker_start_text) + r".*?" + re.escape(marker_end_text),
+        re.DOTALL
+    )
+
+    # Define the replacement text: marker start, the block content, and marker end
+    replacement_text = f"{marker_start_text}\n{block}\n{marker_end_text}"
+
+    # Check if the markers are already in the input
+    if pattern.search(input_text):
+        # Replace the existing block
+        modified_text = pattern.sub(replacement_text.encode('unicode_escape').decode(), input_text)
+    else:
+        # If markers do not exist, determine where to insert the new block
+        if insertafter:
+            # Try to find the insertion point based on the `insertafter` pattern
+            insertafter_pattern = re.compile(re.escape(insertafter))
+            match = insertafter_pattern.search(input_text)
+
+            if match:
+                # Insert the block immediately after the matched pattern
+                insert_position = match.end()
+                modified_text = (
+                    input_text[:insert_position] + "\n" + replacement_text + input_text[insert_position:]
+                )
+            else:
+                # If `insertafter` pattern is not found, append the block at the end
+                modified_text = f"{input_text.rstrip()}\n{replacement_text}\n"
+        else:
+            # No `insertafter` specified, so just append the block at the end
+            modified_text = f"{input_text.rstrip()}\n{replacement_text}\n"
+
+    # Output the modified text
+    return modified_text
+
+def strip_json_braces_and_ensure_comma(file: str) -> str:
+    # Read the JSON file content
+    with open(file, 'r') as f:
+        content = f.read().strip()
+
+    # Remove leading and trailing braces
+    if content.startswith('{') and content.endswith('}'):
+        content = content[1:-1].strip('\n')  # Strip braces and any extra newlines
+
+    # Split content into lines and strip any surrounding whitespace
+    lines = content.splitlines()
+    lines = [line.rstrip() for line in lines if line.strip()]  # Remove empty lines and trailing whitespace
+
+    # Ensure the last line ends with a comma
+    if lines and not lines[-1].endswith(','):
+        lines[-1] += ','
+
+    # Join the lines back together with newlines
+    return '\n'.join(lines)
+
+if __name__ == '__main__':
+    marker = '// {mark} CHEZMOI MANAGED BLOCK'
+    file = os.path.join(os.environ['CHEZMOI_SOURCE_DIR'], '.vscode.shared.settings.jsonc')
+    content = strip_json_braces_and_ensure_comma(file)
+    
+    input_text = sys.stdin.read() or '{\n}\n'
+    result = block_in_str(input_text, content, marker, insertafter='{')
+    sys.stdout.write(result)
