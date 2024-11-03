@@ -1,0 +1,11 @@
+# Aliases
+{{ range .shell.aliases.sh -}}
+{{ template "sh_alias" . }}
+{{ end }}
+{{- range .shell.aliases.global -}}
+{{ template "sh_alias" . }}
+{{ end }}
+# Environment
+{{ range .shell.environment.sh -}}
+{{ template "sh_env" . }}
+{{ end }}

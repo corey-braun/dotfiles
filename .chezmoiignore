@@ -1,21 +1,27 @@
 .vscode/
-.lib/
 
 # VS Code shared settings
 # https://github.com/twpayne/chezmoi/discussions/1312#discussioncomment-1371764
 .vscode.shared.settings.jsonc
 
 {{ if ne .chezmoi.os "windows" }}
+# AppData/Roaming/Code/User/settings.json
 AppData/
-#AppData/Roaming/Code/User/settings.json
+# Documents/PowerShell/Microsoft.PowerShell_profile.ps1
+Documents/
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
+# .config/Code/User/settings.json
 .config/
-#.config/Code/User/settings.json
 {{ end }}
 
 {{ if ne .chezmoi.os "darwin" }}
+# Library/Application Support/Code/User/settings.json
 Library/
-#Library/Application Support/Code/User/settings.json
+{{ end }}
+
+{{ if eq .chezmoi.os "windows" }}
+.zshrc
+.bashrc
 {{ end }}

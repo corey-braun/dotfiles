@@ -1,0 +1,1 @@
+{{ if index . "comment" }}# {{ .comment }}{{ "\n" }}{{ end }}New-Alias {{ .name }} '{{ .cmd }}'

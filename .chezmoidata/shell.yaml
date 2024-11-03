@@ -1,0 +1,29 @@
+shell:
+  aliases:
+    global:
+      - name: k
+        cmd: kubectl
+    sh:
+      - name: ls
+        cmd: ls --color=auto
+      - name: dir
+        cmd: ls -lah
+      - name: dr
+        cmd: ls -lh
+      - name: sudo
+        cmd: 'sudo '
+        comment: Allow aliases to be used with `sudo`
+    ps:
+      - name: which
+        cmd: Get-Command
+  environment:
+    sh:
+      - name: ET_NO_TELEMETRY
+        val: '1'
+        comment: Disable `et` (Eternal Terminal) telemetry
+      - name: HOMEBREW_NO_ANALYTICS
+        val: '1'
+        comment: Disable `brew` (Homebrew) telemetry
+      - name: DISABLE_TELEMETRY
+        val: 'true'
+        comment: Disable `k0sctl` (k0s) telemetry
