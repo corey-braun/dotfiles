@@ -9,3 +9,8 @@
 {{ range .shell.environment.sh -}}
 {{ template "sh_env" . }}
 {{ end }}
+if [ -d ~/.zshrc.d ] ; then
+    for i in ~/.zshrc.d/* ; do
+        source "$i"
+    done
+fi
