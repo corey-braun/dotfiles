@@ -3,6 +3,7 @@
     "redhat.telemetry.enabled": false,
     "files.eol": "\n",
     "editor.acceptSuggestionOnEnter": "off",
+    "editor.minimap.enabled": false,
     "editor.lineNumbers": "relative",
     "editor.cursorBlinking": "solid",
     "vim.cursorStylePerMode.normal": "block",
