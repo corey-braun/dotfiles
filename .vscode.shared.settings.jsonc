@@ -16,8 +16,8 @@
         "editor.lineHighlightBackground": "#1D1D1D",
     },
     "cSpell.enabledFileTypes": {
-        // Option for "default global ignore" was removed, so must disable all
-        // types manually. Full list from:
+        // Option for a default global ignore was removed, so must disable all
+        // types manually. Initial list from:
         // https://github.com/streetsidesoftware/vscode-spell-checker/blob/main/package.json
         "al": false,
         "asciidoc": true,
@@ -30,6 +30,7 @@
         "css": false,
         "dart": false,
         "diff": false,
+        "dockercompose": false,
         "dockerfile": false,
         "elixir": false,
         "erlang": false,
