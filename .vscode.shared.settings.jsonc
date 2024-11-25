@@ -62,6 +62,7 @@
         "perl": false,
         "perl6": false,
         "php": false,
+        "pip-requirements": false,
         "plaintext": false,
         "powershell": false,
         "properties": false,
