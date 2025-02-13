@@ -20,6 +20,8 @@
         // types manually. Initial list from:
         // https://github.com/streetsidesoftware/vscode-spell-checker/blob/main/package.json
         "al": false,
+        "ansible": false,
+        "ansible-jinja": false,
         "asciidoc": true,
         "bat": false,
         "c": false,
