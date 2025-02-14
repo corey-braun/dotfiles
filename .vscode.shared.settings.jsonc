@@ -9,6 +9,7 @@
     "vim.cursorStylePerMode.normal": "block",
     "workbench.startupEditor": "none",
     "editor.rulers": [80, 120],
+    "window.zoomLevel": 1,
     "workbench.preferredDarkColorTheme": "Default Dark+",
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#252525",
