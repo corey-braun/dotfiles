@@ -93,4 +93,15 @@
     "[dockerfile]": {
         "editor.insertSpaces": false,
     },
+    "[ansible]": {
+        "editor.detectIndentation": true,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.quickSuggestions": {
+            "comments": true,
+            "other": true,
+            "strings": true
+        },
+        "editor.autoIndent": "advanced"
+    },
 }
