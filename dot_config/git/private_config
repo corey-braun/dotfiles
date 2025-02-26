@@ -1,0 +1,27 @@
+# Global gitconfig file
+[core]
+	autocrlf = input
+	eol = lf
+	fsmonitor = true
+	untrackedCache = true
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+[push]
+	autoSetupRemote = true
+[commit]
+	verbose = true
+[rebase]
+	autoStash = true
+[init]
+	defaultBranch = main
+
+# Include machine-specific config. Ensure this remains the last directive so all other options can be overridden.
+[include]
+	path = config.d/machine.conf
