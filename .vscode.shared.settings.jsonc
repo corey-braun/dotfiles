@@ -16,6 +16,8 @@
         "editor.lineHighlightBorder": "#252525",
         "editor.lineHighlightBackground": "#1D1D1D",
     },
+    "search.useIgnoreFiles": true,
+    "search.useGlobalIgnoreFiles": true,
     "cSpell.enabledFileTypes": {
         "asciidoc": true,
         "latex": true,
