@@ -24,23 +24,6 @@
         "markdown": true,
         // Only check file types explicitly enabled.
         "*": false,
-        // Disable hard-coded enabled file types. This should be fixed in v4.0.35+
-        // https://github.com/streetsidesoftware/vscode-spell-checker/issues/3836#issuecomment-2577907885
-        // https://github.com/streetsidesoftware/vscode-spell-checker/releases/tag/code-spell-checker-v4.0.35
-        // https://github.com/streetsidesoftware/vscode-spell-checker/pull/4039
-        // https://github.com/streetsidesoftware/cspell-dicts/pull/3996
-        "ada": false,
-        "al": false,
-        "astro": false,
-        "dart": false,
-        "elisp": false,
-        "lisp": false,
-        "fsharp": false,
-        "julia": false,
-        "kotlin": false,
-        "r": false,
-        "sql": false,
-        "terraform": false,
     },
     "cSpell.languageSettings": [
         {
