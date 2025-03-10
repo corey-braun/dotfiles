@@ -1,29 +1,41 @@
 shell:
-  aliases:
+  alias:
     global:
-      - name: k
-        cmd: kubectl
+      - key: k
+        val: kubectl
+      - key: d
+        val: docker
+      - key: dc
+        val: docker compose
     sh:
-      - name: ls
-        cmd: ls --color=auto
-      - name: dir
-        cmd: ls -lah
-      - name: dr
-        cmd: ls -lh
-      - name: sudo
-        cmd: 'sudo '
+      - key: ls
+        val: ls --color=auto
+      - key: dir
+        val: ls -lah
+      - key: dr
+        val: ls -lh
+      - key: sudo
+        val: 'sudo '
         comment: Allow aliases to be used with `sudo`
     ps:
-      - name: which
-        cmd: Get-Command
-  environment:
+      - key: which
+        val: Get-Command
+  env:
+    global: []
     sh:
-      - name: ET_NO_TELEMETRY
+      - key: ET_NO_TELEMETRY
         val: '1'
         comment: Disable `et` (Eternal Terminal) telemetry
-      - name: HOMEBREW_NO_ANALYTICS
+      - key: HOMEBREW_NO_ANALYTICS
         val: '1'
         comment: Disable `brew` (Homebrew) telemetry
-      - name: DISABLE_TELEMETRY
+      - key: DISABLE_TELEMETRY
         val: 'true'
         comment: Disable `k0sctl` (k0s) telemetry
+    ps: []
+  path:
+    global:
+      - key: '"$HOME/bin"'
+        comment: User bin
+    sh: []
+    ps: []

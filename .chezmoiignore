@@ -20,8 +20,3 @@ Documents/
 # Library/Application Support/Code/User/settings.json
 Library/
 {{ end }}
-
-{{ if eq .chezmoi.os "windows" }}
-.zshrc
-.bashrc
-{{ end }}

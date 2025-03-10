@@ -1,0 +1,7 @@
+{{- $meta := or (index . "meta") dict -}}
+{{- $sep := or (index $meta "sep") " " -}}
+
+{{ range .items }}
+    {{ with index . "comment" -}}# {{ . }}{{ "\n" }}    {{ end -}}
+    {{ .key }}{{ with index . "val" }}{{ $sep }}'{{ . }}'{{ end }}
+{{- end }}
