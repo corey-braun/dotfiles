@@ -1,26 +1,62 @@
-# Global gitconfig file
+# Global git config file
+
 [core]
 	autocrlf = input
 	eol = lf
 	fsmonitor = true
 	untrackedCache = true
+
 [branch]
 	sort = -committerdate
+
 [tag]
 	sort = version:refname
+
 [diff]
 	algorithm = histogram
 	colorMoved = plain
 	mnemonicPrefix = true
 	renames = true
+
 [push]
 	autoSetupRemote = true
+
 [commit]
 	verbose = true
+
 [rebase]
 	autoStash = true
+
 [init]
 	defaultBranch = main
+
+# Some entries inspired by:
+# https://github.com/jordelver/dotfiles/blob/master/config/git/config
+[alias]
+	a = add
+	d = diff
+	# Interactive fixup commit selection.
+	fixup = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
+	# Pretty log with one line per commit.
+	#
+	# Commit hash color is configured globally (via `color.diff.commit`),
+	# allowing use of `%C(auto)`. Other fields do not have config options, and
+	# are thus set for this command only. See:
+	# https://stackoverflow.com/questions/75691605/how-to-change-the-color-of-git-log-within-the-gitconfig-file
+	l = log --pretty=format:"%C(auto)%h%x09%C(cyan)%an%x09%C(magenta)%ar%x09%C(reset)%s" -20
+	# Pretty status with branch info and one line per changed file.
+	s = status --short --branch
+
+# Info on customzing colors/formatting:
+# https://git-scm.com/docs/pretty-formats
+# https://git-scm.com/book/sv/v2/Customizing-Git-Git-Configuration
+[color "diff"]
+	commit = yellow
+	old = red
+	new = green
+[color "status"]
+	localBranch = brightgreen
+	remoteBranch = blue
 
 # Include machine-specific config. Ensure this remains the last directive so all other options can be overridden.
 [include]
