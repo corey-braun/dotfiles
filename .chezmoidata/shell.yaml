@@ -7,6 +7,8 @@ shell:
         val: docker
       - key: dc
         val: docker compose
+      - key: g
+        val: git
     sh:
       - key: ls
         val: ls --color=auto
