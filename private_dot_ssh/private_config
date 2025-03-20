@@ -1,0 +1,9 @@
+# User ssh config file
+
+# Include split config files. Ensure this remains the first directive, since
+# later definitions cannot override earlier ones.
+Include config.d/*
+
+StrictHostKeyChecking accept-new
+CanonicalizeHostname yes
+AddKeysToAgent yes
