@@ -49,7 +49,10 @@ for k v in "${(@kv)my_envvars}"; do
     export "$k=$v"
 done
 
-path=(${my_paths:|path} $path)
+# Only add dirs to $path if they exist and are not already in $path
+() {
+    path=(${@:|path} $path)
+} ${^my_paths}(-/N)
 
 ## Set up completions
 zcomet compinit
