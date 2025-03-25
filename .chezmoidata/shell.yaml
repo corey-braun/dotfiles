@@ -39,5 +39,11 @@ shell:
     global:
       - key: '"$HOME/bin"'
         comment: User bin
+      - key: '"$HOME/go/bin"'
+        comment: Go
+      - key: '"$HOME/.cargo/bin"'
+        comment: Cargo (Rust)
+      - key: '"$HOME/.local/bin"'
+        comment: uv (Python)
     sh: []
     ps: []
