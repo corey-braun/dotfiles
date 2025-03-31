@@ -34,11 +34,9 @@ my_envvars=({{ template "shell_array" dict "items" (concat .shell.env.global .sh
 my_paths=({{ template "shell_array" dict "items" (concat .shell.path.global .shell.path.sh) }})
 
 # Load split config files
-if [ -d "${ZDOTDIR:-${HOME}}/.zshrc.d" ]; then
-    for i in "${ZDOTDIR:-${HOME}}/.zshrc.d"/* ; do
-        source "$i"
-    done
-fi
+for i in "${ZDOTDIR:-${HOME}}/.zshrc.d"/*(N) ; do
+    source "$i"
+done
 
 # Apply array variables
 for k v in "${(@kv)my_aliases}"; do
