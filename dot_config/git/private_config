@@ -30,14 +30,16 @@
 [init]
 	defaultBranch = main
 
+[merge]
+	conflictstyle = zdiff3
+
 # Some entries inspired by:
 # https://github.com/jordelver/dotfiles/blob/master/config/git/config
 [alias]
 	a = add
+	b = branch
 	c = commit
 	d = diff
-	# Interactive fixup commit selection.
-	fixup = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
 	# Pretty log with one line per commit.
 	#
 	# Commit hash color is configured globally (via `color.diff.commit`),
@@ -47,6 +49,9 @@
 	l = log --pretty=format:'%C(auto)%h %C(cyan)%<(15,trunc)%an %C(magenta)%<(15,trunc)%ar %C(reset)%s %>|(-3)%C(auto)%d' -20
 	# Pretty status with branch info and one line per changed file.
 	s = status --short --branch
+	amend = commit --amend --no-edit
+	# Interactive fixup commit selection.
+	fixup = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
 
 # Info on customzing colors/formatting:
 # https://git-scm.com/docs/pretty-formats
@@ -58,6 +63,25 @@
 [color "status"]
 	localBranch = brightgreen
 	remoteBranch = blue
+
+# Configure delta
+# https://github.com/dandavison/delta
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	# Emulate simpler diff-highlight style output
+	# https://dandavison.github.io/delta/diff-highlight-and-diff-so-fancy-emulation.html
+	# https://github.com/git/git/tree/master/contrib/diff-highlight
+	diff-highlight = true
+	# use n and N to move between diff sections
+	navigate = true
+	navigate-regex = "^(commit|added:|removed:|renamed:|Δ|•|diff --git .*)"
+	# Colors
+	dark = true
+	minus-emph-style = brightred
+	plus-emph-style = brightgreen
 
 # Include machine-specific config. Ensure this remains the last directive so all other options can be overridden.
 [include]
