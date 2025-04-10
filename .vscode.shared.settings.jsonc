@@ -31,9 +31,9 @@
             // Exclude code blocks
             "ignoreRegExpList": [
                 "/^\\s*```[\\s\\S]*?^\\s*```/gm",
-                "/(`{1,2}).{1,}\\1/g"
-            ]
-        }
+                "/(`{1,2}).{1,}\\1/g",
+            ],
+        },
     ],
     "files.associations": {
         // Ansible
@@ -85,8 +85,20 @@
         "editor.quickSuggestions": {
             "comments": true,
             "other": true,
-            "strings": true
+            "strings": true,
         },
-        "editor.autoIndent": "advanced"
+        "editor.autoIndent": "advanced",
+    },
+    "ansible.lightspeed.enabled": false,
+    "[markdown]": {
+        "rewrap.autoWrap.enabled": true,
+        "editor.rulers": [80],
+    },
+    "markdownlint.config": {
+        // Full list of rules:
+        // https://github.com/markdownlint/markdownlint/blob/main/docs/RULES.md
+        "MD034": false, // Bare URL used
+        "MD032": false, // Lists should be surrounded by blank lines
+        "MD029": false, // Ordered list item prefix
     },
 }
