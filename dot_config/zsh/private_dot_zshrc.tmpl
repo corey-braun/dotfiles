@@ -4,13 +4,13 @@ bindkey \^U backward-kill-line
 ## Application-specific setup
 # zcomet - https://zcomet.io
 if [[ ! -f ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh ]]; then
-    git clone https://github.com/agkozak/zcomet.git ${ZDOTDIR:-${HOME}}/.zcomet/bin
+    git clone https://github.com/agkozak/zcomet.git "${ZDOTDIR:-${HOME}}"/.zcomet/bin
 fi
-source ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh
+source "${ZDOTDIR:-${HOME}}"/.zcomet/bin/zcomet.zsh
 
 # Homebrew - https://brew.sh
 for brew in {/opt/homebrew,/home/linuxbrew/.linuxbrew}/bin/brew; do
-    if [ -f $brew -a -x $brew ]; then
+    if [[ -f $brew && -x $brew ]]; then
         eval "$($brew shellenv)"
         break
     fi
@@ -23,9 +23,15 @@ if command -v zoxide &> /dev/null; then
 fi
 
 ## Custom array variable setup
-local -A my_aliases
-local -A my_envvars
-local -a my_paths
+tmp_vars=(
+    tmp_vars
+    my_aliases
+    my_envvars
+    my_paths
+)
+typeset -A my_aliases
+typeset -A my_envvars
+typeset -a my_paths
 
 my_aliases=({{ template "shell_array" dict "items" (concat .shell.alias.global .shell.alias.sh) }})
 
@@ -33,12 +39,12 @@ my_envvars=({{ template "shell_array" dict "items" (concat .shell.env.global .sh
 
 my_paths=({{ template "shell_array" dict "items" (concat .shell.path.global .shell.path.sh) }})
 
-# Load split config files
+## Load split config files
 for i in "${ZDOTDIR:-${HOME}}/.zshrc.d"/*(N) ; do
     source "$i"
 done
 
-# Apply array variables
+## Apply array variables
 for k v in "${(@kv)my_aliases}"; do
     alias "$k=$v"
 done
@@ -51,6 +57,9 @@ done
 () {
     path=(${@:|path} $path)
 } ${^my_paths}(-/N)
+
+# Clean up temporary variables
+unset "${tmp_vars[@]}"
 
 ## Set up completions
 zcomet compinit

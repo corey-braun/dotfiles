@@ -16,6 +16,8 @@ shell:
         val: ls -lah
       - key: dr
         val: ls -lh
+      - key: grep
+        val: grep --color=auto
       - key: sudo
         val: 'sudo '
         comment: Allow aliases to be used with `sudo`
