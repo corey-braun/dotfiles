@@ -1,6 +1,7 @@
 {
     "telemetry.telemetryLevel": "off",
     "redhat.telemetry.enabled": false,
+    "docker.lsp.telemetry": "off",
     "files.eol": "\n",
     "editor.acceptSuggestionOnEnter": "off",
     "editor.minimap.enabled": false,
