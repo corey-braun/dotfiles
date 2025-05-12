@@ -17,6 +17,9 @@
         "editor.lineHighlightBorder": "#252525",
         "editor.lineHighlightBackground": "#1D1D1D",
     },
+    // Disable multi-step keyboard shortcuts (chords) in terminal. See:
+    // https://code.visualstudio.com/docs/terminal/advanced#_chords
+    "terminal.integrated.allowChords": false,
     "search.useIgnoreFiles": true,
     "search.useGlobalIgnoreFiles": true,
     "cSpell.enabledFileTypes": {
@@ -101,5 +104,15 @@
         "MD034": false, // Bare URL used
         "MD032": false, // Lists should be surrounded by blank lines
         "MD029": false, // Ordered list item prefix
+    },
+    // Don't show AI sparkle icon when highlighting text. See:
+    // https://github.com/microsoft/vscode-copilot-release/issues/865#issuecomment-1936898525
+    "github.copilot.editor.enableCodeActions": false,
+    "github.copilot.enable": {
+        "*": true,
+        // No unprompted AI suggestions when writing documentation
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
     },
 }
