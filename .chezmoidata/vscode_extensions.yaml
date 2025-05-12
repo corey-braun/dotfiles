@@ -1,0 +1,23 @@
+vscode_extensions:
+  - charliermarsh.ruff
+  - davidanson.vscode-markdownlint
+  - docker.docker
+  - editorconfig.editorconfig
+  - github.copilot
+  - github.copilot-chat
+  - golang.go
+  - gruntfuggly.todo-tree
+  - ms-azuretools.vscode-docker
+  - ms-python.debugpy
+  - ms-python.python
+  - ms-python.vscode-pylance
+  - ms-vscode-remote.remote-containers
+  - redhat.ansible
+  - redhat.vscode-yaml
+  - rlivings39.fzf-quick-open
+  - stkb.rewrap
+  - streetsidesoftware.code-spell-checker
+  - tamasfe.even-better-toml
+  - timonwong.shellcheck
+  - vscodevim.vim
+  - waderyan.gitblame

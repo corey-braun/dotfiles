@@ -1,0 +1,4 @@
+{{ template "vscode_extensions.py" }}
+
+{{- /* This causes the script to change (and thus be run) whenever the extensions list is modified */}}
+# Extensions hash: {{ .vscode_extensions | join " " | sha256sum }}
