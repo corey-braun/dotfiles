@@ -1,12 +1,34 @@
 ## Keybinds
 bindkey \^U backward-kill-line
 
+## History
+# See https://unix.stackexchange.com/questions/273861/unlimited-history-in-zsh
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
+
+# Can check which options are enabled with `set -o`, since:
+# > A plain `setopt` doesn't display options whose setting is the default value.
+# https://stackoverflow.com/questions/9347739/setopt-listambiguous-not-setting-the-option/#9352837
+# See also: `man zshoptions`.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+
 ## Application-specific setup
 # zcomet - https://zcomet.io
 if [[ ! -f ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh ]]; then
     git clone https://github.com/agkozak/zcomet.git "${ZDOTDIR:-${HOME}}"/.zcomet/bin
 fi
 source "${ZDOTDIR:-${HOME}}"/.zcomet/bin/zcomet.zsh
+
+# Automatically activate/deactivate Python virtual environments when changing directories.
+# https://github.com/Skylor-Tang/auto-venv
+zcomet load Skylor-Tang/auto-venv
+
+# Lazy load infrequently used commands to speed up shell startup
+# https://github.com/qoomon/zsh-lazyload
+zcomet load qoomon/zsh-lazyload
 
 # Homebrew - https://brew.sh
 for brew in {/opt/homebrew,/home/linuxbrew/.linuxbrew}/bin/brew; do
@@ -20,6 +42,13 @@ done
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"
     alias cd=z
+fi
+
+# Github Copilot aliases
+# https://docs.github.com/en/copilot/managing-copilot/configure-personal-settings/configuring-github-copilot-in-the-cli#setting-up-aliases
+if command -v gh &> /dev/null; then
+    # Lazy load the alias functions, since the command to create them is super slow.
+    lazyload ghce ghcs -- 'eval "$(gh copilot alias -- zsh)"'
 fi
 
 ## Custom array variable setup
