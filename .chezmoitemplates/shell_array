@@ -1,7 +1,17 @@
 {{- $meta := or (index . "meta") dict -}}
 {{- $sep := or (index $meta "sep") " " -}}
+{{- $indent := or (index $meta "indent") 4 -}}
 
 {{ range .items }}
-    {{ with index . "comment" -}}# {{ . }}{{ "\n" }}    {{ end -}}
-    {{ .key }}{{ with index . "val" }}{{ $sep }}'{{ . }}'{{ end }}
-{{- end }}
+    {{- with index . "comment" -}}
+        {{- /*
+            Must subtract length of comment marker and indentation from 80 for
+            accurate line wrap.
+        */ -}}
+        {{ . | wrap (sub 78 $indent | int) | cat "#" | replace "\n" "\n# " | nindent $indent }}
+    {{- end -}}
+    {{- .key | nindent $indent }}
+        {{- with index . "val" -}}
+            {{ $sep }}{{ template "shell_quote" . }}
+        {{- end -}}
+{{ end }}

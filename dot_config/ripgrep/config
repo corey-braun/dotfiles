@@ -1,0 +1,7 @@
+# Ripgrep configuration file
+
+# Colors
+# See https://github.com/BurntSushi/ripgrep/blob/master/FAQ.md#colors
+--colors=path:fg:magenta
+--colors=path:style:intense
+--colors=path:style:underline

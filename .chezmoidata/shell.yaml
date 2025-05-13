@@ -25,7 +25,12 @@ shell:
       - key: which
         val: Get-Command
   env:
-    global: []
+    global:
+      - key: RIPGREP_CONFIG_PATH
+        val: '"$HOME/.config/ripgrep/config"'
+        comment: >-
+          Must specify ripgrep config file with environment variable. See:
+          https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
     sh:
       - key: ET_NO_TELEMETRY
         val: '1'
