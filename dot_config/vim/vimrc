@@ -1,0 +1,39 @@
+" Include default configuration
+" See `:help defaults.vim`
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
+" Mouse settings
+set mouse=nicr
+map <ScrollWheelRight> h
+map <ScrollWheelDown> j
+map <ScrollWheelUp> k
+map <ScrollWheelLeft> l
+
+" Indentation
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smartindent
+
+" YAML indentation
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Colors
+colorscheme default
+syntax on
+
+" Line numbers
+" https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
+set number
+set relativenumber
+highlight LineNr ctermfg=242 guifg=#6c6c6c "rgb 108,108,108
+" Highlight current line number
+set cursorline
+set cursorlineopt=number
+highlight CursorLineNr ctermfg=245 guifg=#8a8a8a cterm=NONE "rgb 138,138,138
+
+" Highlight trailing whitespace
+highlight BadWhitespace ctermbg=red guibg=red
+match BadWhitespace /\s\+$/
