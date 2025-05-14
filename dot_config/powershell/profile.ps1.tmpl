@@ -1,0 +1,69 @@
+{{- $meta := dict "sep" " = " -}}
+
+## XDG Base Directory variables
+$env:XDG_CONFIG_HOME = Join-Path "$HOME" .config
+$env:XDG_DATA_HOME = Join-Path "$HOME" .local share
+$env:XDG_CACHE_HOME = Join-Path "$env:XDG_CONFIG_HOME" cache
+$env:XDG_STATE_HOME = Join-Path "$env:XDG_CONFIG_HOME" state
+
+## Keybinds
+# https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline_functions
+Set-PSReadLineKeyHandler -Key Ctrl+u -Function BackwardDeleteLine
+Set-PSReadLineKeyHandler -Key Ctrl+k -Function ForwardDeleteLine
+
+## Application-specific setup
+# zoxide - https://github.com/ajeetdsouza/zoxide
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+    Invoke-Expression (& { (zoxide init powershell | Out-String) })
+    New-Alias -Force -Option AllScope cd z
+}
+
+# Github Copilot aliases
+# https://docs.github.com/en/copilot/managing-copilot/configure-personal-settings/configuring-github-copilot-in-the-cli#setting-up-aliases
+if (Get-Command gh -ErrorAction SilentlyContinue) {
+    # TODO: Find a way to lazy load this
+    Invoke-Expression (& { (gh copilot alias -- pwsh | Out-String) })
+}
+
+## Custom array variable setup
+$tmp_vars = @(
+    'tmp_vars'
+    'my_aliases'
+    'my_envvars'
+    'my_paths'
+)
+
+$my_aliases = @{ {{- template "shell_array" dict "items" (concat .shell.alias.global .shell.alias.ps) "meta" $meta -}} }
+
+$my_envvars = @{ {{- template "shell_array" dict "items" (concat .shell.env.global .shell.env.ps) "meta" $meta -}} }
+
+$my_paths = @({{ template "shell_array" dict "items" (concat .shell.path.global .shell.path.ps) "meta" $meta }})
+
+## Load split config files
+Get-ChildItem -File -Recurse -Path (Join-Path "$HOME" .config powershell profile.d) | ForEach-Object {
+    . $_.FullName
+}
+
+## Apply array variables
+$my_aliases.GetEnumerator() | ForEach-Object {
+    if ($_.Value -match ' ') {
+        # Aliases cannot include arguments, so must define a function
+        Invoke-Expression "function $($_.Key) { $($_.Value) @args }"
+    } else {
+        New-Alias -Force $_.Key $_.Value
+    }
+}
+
+$my_envvars.GetEnumerator() | ForEach-Object {
+    [Environment]::SetEnvironmentVariable($_.Key, $_.Value, 'Process')
+}
+
+# Only add dirs to PATH if they exist and are not already in PATH
+$env:PATH = (
+    ($my_paths | Where-Object { Test-Path -PathType Container $_ }) +
+    ($env:PATH -Split [System.IO.Path]::PathSeparator)
+    | Select-Object -Unique
+    ) -Join [System.IO.Path]::PathSeparator
+
+# Clean up temporary variables
+foreach ($var in $tmp_vars) { Remove-Variable "$var" }
