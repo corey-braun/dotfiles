@@ -10,6 +10,7 @@
 import argparse
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import textwrap
@@ -71,7 +72,7 @@ class VSCodeExtensions:
     @property
     def installed(self) -> list[str]:
         if self._installed is None:
-            res = subprocess.run(["code", "--list-extensions"], capture_output=True)
+            res = subprocess.run([shutil.which("code"), "--list-extensions"], capture_output=True)
             if res.stderr:
                 raise CommandError(res, "Error getting installed extensions")
             self._installed = res.stdout.decode().splitlines()
@@ -120,7 +121,7 @@ class VSCodeExtensions:
         failed_to_install: list[str] = []
 
         for ext in sorted(extensions):
-            res = subprocess.run(["code", "--install-extension", ext], capture_output=True)
+            res = subprocess.run([shutil.which("code"), "--install-extension", ext], capture_output=True)
             if res.returncode != 0 or res.stderr or not any(x in res.stdout.decode() for x in ("already installed", "successfully installed")):
                 traceback.print_exception(CommandError(res, f"Failed to install extension '{ext}'"))
                 print("\n", file=sys.stderr)
