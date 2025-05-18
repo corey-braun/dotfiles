@@ -31,6 +31,11 @@ shell:
         comment: >-
           Must specify ripgrep config file with environment variable. See:
           https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+      - key: BAT_CONFIG_DIR
+        val: '"$HOME/.config/bat"'
+        comment: >-
+          Must specify bat config dir to use same path on every OS. See:
+          https://github.com/sharkdp/bat#configuration-file
     sh:
       - key: ET_NO_TELEMETRY
         val: '1'
